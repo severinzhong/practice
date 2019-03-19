@@ -1,5 +1,7 @@
 # minmum path sum
 def minPathSum(grid):
+    if grid == [] :
+        return 0
     n = len(grid)
     m = len(grid[0])
     dp = [[(1<<32)-1 for _ in range(m)] for _ in range(n)]
