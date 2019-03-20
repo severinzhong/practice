@@ -24,6 +24,7 @@ Qlearning部分有:
     初始化(初始化参数,建立Q-table,初始化环境)
     for i in range(maxiter) :
         while True :
+            视觉化环境
             判断当前状态是否在Q-table中(不在需要建立状态)
             选择行动(随机或者选择最有action)
             根据环境获得下一次的状态(state_),reward,是否结束(done)三个量
