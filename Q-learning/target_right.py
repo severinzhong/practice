@@ -5,12 +5,40 @@ Run this program and to see how the agent will improve its strategy of finding t
 
 View more on my tutorial page: https://morvanzhou.github.io/tutorials/
 """
+'''
+分成3个部分
+Qlearning部分有:
+    初始化Q_table和学习相关参数(action)
+    判断当前状态是否在Q-table中(不在需要建立状态)
+    选择行动(随机或者选择最有action)
+    Q_predict = q_table.loc[state, action]
+    Q_target = done ? reward : reward + gamma * q_table.loc[state_, :].max()
+    Q_table.loc[s, a] += learningrate * (Q_target - Q_predict) 
 
+环境部分有:
+    初始化环境
+    视觉化环境
+    根据环境获得下一次的状态(state_),reward,是否结束(done)三个量
+
+主程序有:
+    初始化(初始化参数,建立Q-table,初始化环境)
+    for i in range(maxiter) :
+        while True :
+            判断当前状态是否在Q-table中(不在需要建立状态)
+            选择行动(随机或者选择最有action)
+            根据环境获得下一次的状态(state_),reward,是否结束(done)三个量
+            Q_predict = q_table.loc[state, action]
+            Q_target = done ? reward : reward + gamma * q_table.loc[state_, :].max()
+            Q_table.loc[s, a] += learningrate * (Q_target - Q_predict) 
+            更新state = state_
+            if done :
+                break
+'''
 import numpy as np
 import pandas as pd
 import time
 
-np.random.seed(2)  # reproducible
+np.random.seed(20)  # reproducible
 
 
 N_STATES = 6   # the length of the 1 dimensional world
@@ -18,7 +46,7 @@ ACTIONS = ['left', 'right']     # available actions
 EPSILON = 0.9   # greedy police
 ALPHA = 0.1     # learning rate
 GAMMA = 0.9    # discount factor
-MAX_EPISODES = 13   # maximum episodes
+MAX_EPISODES = 30   # maximum episodes
 FRESH_TIME = 0.3    # fresh time for one move
 
 
@@ -46,12 +74,12 @@ def get_env_feedback(S, A):
     if A == 'right':    # move right
         if S == N_STATES - 2:   # terminate
             S_ = 'terminal'
-            R = 1
+            R = 100
         else:
             S_ = S + 1
-            R = 0
+            R = -1
     else:   # move left
-        R = 0
+        R = -1
         if S == 0:
             S_ = S  # reach the wall
         else:
@@ -65,7 +93,7 @@ def update_env(S, episode, step_counter):
     if S == 'terminal':
         interaction = 'Episode %s: total_steps = %s' % (episode+1, step_counter)
         print('\r{}'.format(interaction),end = '')
-        time.sleep(2)
+        time.sleep(0.5)
         print('\r                                ', end='')
     else:
         env_list[S] = 'o'
