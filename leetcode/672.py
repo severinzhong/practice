@@ -19,7 +19,7 @@ def flipLights(n,m) :
         return 4
     return 8
 if __name__ == '__main__' :
-    print(fliplight(2,1))
+    print(flipLights(2,1))
 '''
 1 1 2  1 2 2  1 3 2  1 4 2
 2 1 3  2 2 4  2 3 4  2 4 4
