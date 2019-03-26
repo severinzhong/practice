@@ -16,7 +16,7 @@ class Solution:
             if height[l]<height[r]:
                 l += 1
             else :
-                r += 1
+                r -= 1
         return ret    
 if __name__ == "__main__":
     height = [1,2]
