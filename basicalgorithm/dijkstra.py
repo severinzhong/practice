@@ -19,7 +19,7 @@ def dijkstra(n , idx , edges) :
         cost[i] = edges[idx][i]
     node = findshortest(cost)
     while node :
-        for i in edges[node] :
+        for i in edges[node] : #update cost
             newcost = cost[node] + edges[node][i]
             if newcost<cost[i] :
                 cost[i] = newcost
